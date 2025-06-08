@@ -96,7 +96,7 @@ const TurfListings = () => {
   const filteredTurfs = turfs.filter(turf => {
     const matchesLocation = !filters.location || turf.location.toLowerCase().includes(filters.location.toLowerCase());
     const matchesSport = !filters.sport || turf.sport.toLowerCase().includes(filters.sport.toLowerCase());
-    const matchesPrice = !filters.priceRange || 
+    const matchesPrice = !filters.priceRange || filters.priceRange === "all" ||
       (filters.priceRange === "low" && turf.price < 1000) ||
       (filters.priceRange === "medium" && turf.price >= 1000 && turf.price < 1500) ||
       (filters.priceRange === "high" && turf.price >= 1500);
@@ -156,7 +156,7 @@ const TurfListings = () => {
                     <SelectValue placeholder="Price Range" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Prices</SelectItem>
+                    <SelectItem value="all">All Prices</SelectItem>
                     <SelectItem value="low">Under ₹1,000</SelectItem>
                     <SelectItem value="medium">₹1,000 - ₹1,500</SelectItem>
                     <SelectItem value="high">Above ₹1,500</SelectItem>
