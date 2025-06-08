@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, Search } from "lucide-react";
+import { Menu, X, User, Search, QrCode, Settings } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +12,12 @@ const Navbar = () => {
     { name: "Home", href: "/" },
     { name: "Find Turfs", href: "/turfs" },
     { name: "Dashboard", href: "/dashboard" },
+    { name: "QR Scanner", href: "/qr-scanner" },
+  ];
+
+  const dashboardLinks = [
+    { name: "Owner Dashboard", href: "/owner-dashboard" },
+    { name: "Admin Dashboard", href: "/admin-dashboard" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -44,6 +50,28 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
+            
+            {/* Dashboard Dropdown */}
+            <div className="relative group">
+              <button className="flex items-center px-3 py-2 text-sm font-medium text-muted-foreground hover:text-primary">
+                <Settings className="w-4 h-4 mr-1" />
+                More
+              </button>
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="py-1">
+                  {dashboardLinks.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             <Button variant="outline" size="sm">
               <User className="w-4 h-4 mr-2" />
               Login
@@ -83,6 +111,22 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
+              
+              {dashboardLinks.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
+                    isActive(item.href)
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-primary hover:bg-accent"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
               <div className="flex flex-col space-y-2 px-3 pt-4">
                 <Button variant="outline" size="sm">
                   <User className="w-4 h-4 mr-2" />
@@ -96,7 +140,7 @@ const Navbar = () => {
           </div>
         )}
       </div>
-    </nav>
+    </div>
   );
 };
 
