@@ -1,12 +1,13 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Users, MapPin, CreditCard, TrendingUp, Eye, UserCheck, UserX } from "lucide-react";
+import { Users, MapPin, CreditCard, TrendingUp, Eye, UserCheck, UserX, Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const [stats] = useState({
     totalUsers: 1250,
     totalTurfs: 45,
@@ -30,13 +31,22 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50 pt-8 pb-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            Admin Dashboard
-          </h1>
-          <p className="text-lg text-gray-600">
-            Platform overview and management
-          </p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+              Admin Dashboard
+            </h1>
+            <p className="text-lg text-gray-600">
+              Platform overview and management
+            </p>
+          </div>
+          <Button 
+            onClick={() => navigate("/turf-registration")}
+            className="btn-primary flex items-center"
+          >
+            <Plus className="w-5 h-5 mr-2" />
+            Add Turf
+          </Button>
         </div>
 
         {/* Stats Cards */}
